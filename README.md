@@ -25,7 +25,7 @@ A web-based tool to monitor GitHub pull requests and workflows across multiple r
 
 ## Environment Variables
 
-- `GITHUB_TOKEN`: Your GitHub Personal Access Token with repo access
+- `GITHUB_TOKEN`: Your GitHub Token with repo access
 - `GITHUB_USERNAME`: Your GitHub username
 - `REPOSITORIES`: Comma-separated list of repositories to monitor (format: owner/repo)
 - `PORT`: Port to run the server on (default: 3000)
@@ -38,7 +38,9 @@ A web-based tool to monitor GitHub pull requests and workflows across multiple r
 
 ## Getting a GitHub Token
 
-1. Go to GitHub Settings > Developer settings > Personal access tokens
+1. Go to GitHub Settings > Developer settings > Classic Tokens
 2. Generate a new token with the following scopes:
    - `repo` (Full control of private repositories)
    - `workflow` (Update GitHub Action workflows)
+
+Then complete the SAML SSO step, if part of an organization
