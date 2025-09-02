@@ -1,0 +1,438 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    background-color: #0d1117;
+    color: #e6edf3;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1900px;
+    margin: 0 auto;
+    padding: 10px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #21262d;
+    flex-shrink: 0;
+}
+
+h1 {
+    color: #f0f6fc;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+h2 {
+    color: #f0f6fc;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+#prs-container, #workflows-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-color: #30363d #21262d;
+}
+
+#prs-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-content: start;
+}
+
+.config-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.username {
+    padding: 8px 12px;
+    background-color: #21262d;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.refresh-btn {
+    padding: 8px 16px;
+    background-color: #238636;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.refresh-btn:hover {
+    background-color: #2ea043;
+}
+
+.refresh-btn:disabled {
+    background-color: #484f58;
+    cursor: not-allowed;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #7d8590;
+    font-size: 1.1rem;
+}
+
+.pr-card, .workflow-card {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+}
+
+.pr-card:hover, .workflow-card:hover {
+    border-color: #656d76;
+}
+
+.pr-header, .workflow-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+/* Repository-based PR title colors */
+.pr-title.repo-5 { color: #3fb950; }
+.pr-title.repo-2 { color: #d29922; }
+.pr-title.repo-3 { color: #fd7e14; }
+.pr-title.repo-4 { color: #7c3aed; }
+.pr-title.repo-1 { color: #e91e63; }
+.pr-title.repo-6 { color: #06b6d4; }
+.pr-title.repo-7 { color: #10b981; }
+.pr-title.repo-8 { color: #f59e0b; }
+
+.pr-title.repo-5:hover { color: #56d364; }
+.pr-title.repo-2:hover { color: #e3b341; }
+.pr-title.repo-3:hover { color: #fd8c3c; }
+.pr-title.repo-4:hover { color: #8b5cf6; }
+.pr-title.repo-1:hover { color: #f06292; }
+.pr-title.repo-6:hover { color: #22d3ee; }
+.pr-title.repo-7:hover { color: #34d399; }
+.pr-title.repo-8:hover { color: #fbbf24; }
+
+/* Draft PR styling - always gray regardless of repo */
+.pr-title.draft { 
+    color: #a5a5a5 !important; 
+}
+
+.pr-title.draft:hover { 
+    color: #bfbfbf !important; 
+}
+
+/* Branch color coding */
+.branch.master-branch {
+    background-color: #238636;
+    color: #fff;
+}
+
+.branch.feature-branch {
+    background-color: #7c3aed;
+    color: #fff;
+}
+
+.pr-title {
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+    display: block;
+    line-height: 1.3;
+}
+
+.pr-title:hover {
+    text-decoration: underline;
+}
+
+.workflow-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f0f6fc;
+    text-decoration: none;
+    margin-bottom: 2px;
+    display: block;
+    line-height: 1.3;
+}
+
+.workflow-title:hover {
+    color: #58a6ff;
+}
+
+.pr-meta, .workflow-meta {
+    font-size: 0.75rem;
+    color: #7d8590;
+}
+
+.repository {
+    background-color: #21262d;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #f0f6fc;
+}
+
+.branch-info {
+    margin: 6px 0;
+    font-size: 0.75rem;
+}
+
+.branch {
+    background-color: #0969da;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin: 0 4px;
+}
+
+.base-branch {
+    background-color: #1f2328;
+    border: 1px solid #30363d;
+    color: #e6edf3;
+}
+
+.reviews-section {
+    margin: 8px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 6px;
+}
+
+.review-group {
+    background-color: #0d1117;
+    border: 1px solid #21262d;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.review-group h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #f0f6fc;
+}
+
+.review-group.approving h4 {
+    color: #3fb950;
+}
+
+.review-group.changes-requested h4 {
+    color: #f85149;
+}
+
+.review-group.pending h4 {
+    color: #d29922;
+}
+
+.review-list {
+    list-style: none;
+}
+
+.review-list li {
+    font-size: 0.7rem;
+    color: #7d8590;
+    margin-bottom: 2px;
+}
+
+.workflows-section {
+    margin: 8px 0;
+}
+
+.workflows-section h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #f0f6fc;
+}
+
+.workflow-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.workflow-item {
+    background-color: #21262d;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    text-decoration: none;
+    color: #e6edf3;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.workflow-item:hover {
+    background-color: #30363d;
+}
+
+.status-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-success {
+    background-color: #3fb950;
+}
+
+.status-failure {
+    background-color: #f85149;
+}
+
+.status-pending {
+    background-color: #d29922;
+}
+
+.status-cancelled {
+    background-color: #656d76;
+}
+
+.status-in_progress {
+    background-color: #0969da;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.latest-comment {
+    margin-top: 6px;
+    font-size: 0.7rem;
+    color: #7d8590;
+}
+
+.latest-comment strong {
+    color: #e6edf3;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #7d8590;
+}
+
+.empty-state h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+    color: #e6edf3;
+}
+
+.draft-badge {
+    background-color: #656d76;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: 8px;
+}
+
+.error-message {
+    background-color: #f85149;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .config-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .pr-header, .workflow-header {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .reviews-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Requested reviewers styling */
+.review-group.requested h4 {
+    color: #7c3aed;
+}
+
+.requested-user {
+    color: #7d8590 !important;
+}
+
+.requested-team {
+    color: #7d8590 !important;
+    font-weight: 500;
+}
+
+.requested-team::before {
+    content: '';
+    margin-right: 4px;
+}
